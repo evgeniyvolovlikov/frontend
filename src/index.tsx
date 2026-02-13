@@ -1,20 +1,18 @@
-import {createRoot} from 'react-dom/client'
-import {App} from '@/app/app'
-import {BrowserRouter} from 'react-router-dom'
-import { ThemeProvider } from '@/app/providers/theme-provider'
+import { render } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'app/providers/ThemeProvider';
+import App from './app/App';
 
-const rootElement = document.getElementById('root')
+import './shared/config/i18n/i18n';
+import { ErrorBoundary } from './app/providers/ErrorBoundary';
 
-if(!rootElement) {
-    throw new Error('Елемент root не найден')
-}
-
-const root = createRoot(rootElement)
-
-root.render(
+render(
     <BrowserRouter>
-        <ThemeProvider>
-            <App/>
-        </ThemeProvider>
-    </BrowserRouter>
-)
+        <ErrorBoundary>
+            <ThemeProvider>
+                <App />
+            </ThemeProvider>
+        </ErrorBoundary>
+    </BrowserRouter>,
+    document.getElementById('root'),
+);
